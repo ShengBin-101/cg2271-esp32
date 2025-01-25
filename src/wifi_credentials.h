@@ -1,0 +1,2 @@
+#define WIFI_SSID "ESP32_AP"
+#define WIFI_PASSWORD "12345678"

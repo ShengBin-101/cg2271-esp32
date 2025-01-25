@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 Web Server</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    h1 { color: #333; }
+    button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+    .status { margin-top: 20px; }
+    .red { background-color: red; color: white; }
+    .green { background-color: green; color: white; }
+    .blue { background-color: blue; color: white; }
+  </style>
+</head>
+<body>
+  <h1>ESP32 Web Server</h1>
+  <p><button class="red" onclick="sendRequest('redOn')">Turn Red LED On</button></p>
+  <p><button class="red" onclick="sendRequest('redOff')">Turn Red LED Off</button></p>
+  <p><button class="green" onclick="sendRequest('greenOn')">Turn Green LED On</button></p>
+  <p><button class="green" onclick="sendRequest('greenOff')">Turn Green LED Off</button></p>
+  <p><button class="blue" onclick="sendRequest('blueOn')">Turn Blue LED On</button></p>
+  <p><button class="blue" onclick="sendRequest('blueOff')">Turn Blue LED Off</button></p>
+
+  <div class="status">
+    <p>Red LED: <span id="redStatus">OFF</span></p>
+    <p>Green LED: <span id="greenStatus">OFF</span></p>
+    <p>Blue LED: <span id="blueStatus">OFF</span></p>
+  </div>
+
+  <script>
+    function sendRequest(action) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/" + action, true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          updateStatus(action);
+        }
+      };
+      xhr.send();
+    }
+
+    function updateStatus(action) {
+      if (action == 'redOn') {
+        document.getElementById('redStatus').innerHTML = 'ON';
+      } else if (action == 'redOff') {
+        document.getElementById('redStatus').innerHTML = 'OFF';
+      } else if (action == 'greenOn') {
+        document.getElementById('greenStatus').innerHTML = 'ON';
+      } else if (action == 'greenOff') {
+        document.getElementById('greenStatus').innerHTML = 'OFF';
+      } else if (action == 'blueOn') {
+        document.getElementById('blueStatus').innerHTML = 'ON';
+      } else if (action == 'blueOff') {
+        document.getElementById('blueStatus').innerHTML = 'OFF';
+      }
+    }
+  </script>
+</body>
+</html>
